@@ -28,7 +28,8 @@
          xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
          xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ui="http://xmlns.oracle.com/soa/designer"
          xmlns:ns3="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment/correlationset"
-         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo">
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/QuerySaldo">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,9 +91,17 @@
         <correlations>
           <correlation set="Correlation_Set1" initiate="no"/>
         </correlations>
-        <invoke name="Invoke1" bpelx:invokeAsDetail="no" partnerLink="QuerySaldo" portType="ns4:QuerySaldo_ptt"
-                operation="QuerySaldoSelect" inputVariable="Invoke1_QuerySaldoSelect_InputVariable"
-                outputVariable="Invoke1_QuerySaldoSelect_OutputVariable"/>
+        <sequence name="Sequence1">
+          <assign name="Assign2">
+            <copy>
+              <from>$OnMessage_EnterCardNumber_InputVariable.part1/ns2:CardNumber</from>
+              <to>$Invoke1_QuerySaldoSelect_InputVariable.QuerySaldoSelect_inputParameters/ns5:cardnr</to>
+            </copy>
+          </assign>
+          <invoke name="Invoke1" bpelx:invokeAsDetail="no" partnerLink="QuerySaldo" portType="ns4:QuerySaldo_ptt"
+                  operation="QuerySaldoSelect" inputVariable="Invoke1_QuerySaldoSelect_InputVariable"
+                  outputVariable="Invoke1_QuerySaldoSelect_OutputVariable"/>
+        </sequence>
       </onMessage>
     </pick>
   </sequence>
