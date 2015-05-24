@@ -1,0 +1,32 @@
+<wsdl:definitions
+     name="QuerySaldo"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/QuerySaldo"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="QuerySaldo_plt" >
+    <plt:role name="QuerySaldo_role" >
+      <plt:portType name="tns:QuerySaldo_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/QuerySaldo" schemaLocation="../Schemas/QuerySaldo_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="QuerySaldoSelect_inputParameters">
+        <wsdl:part name="QuerySaldoSelect_inputParameters" element="top:QuerySaldoSelect_cardnrInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="BankaccountsCollection_msg">
+        <wsdl:part name="BankaccountsCollection" element="top:BankaccountsCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="QuerySaldo_ptt">
+        <wsdl:operation name="QuerySaldoSelect">
+            <wsdl:input message="tns:QuerySaldoSelect_inputParameters"/>
+            <wsdl:output message="tns:BankaccountsCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

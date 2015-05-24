@@ -15,6 +15,8 @@
           location="WSDLs/PaymentTerminal.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
           location="WSDLs/PaymentTerminalWrapper.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo"
+          location="WSDLs/QuerySaldo.wsdl" importType="wsdl"/>
   <service name="DoPayment" ui:wsdlLocation="WSDLs/PaymentTerminal.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal#wsdl.interface(execute_ptt)"/>
     <binding.ws port="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal#wsdl.endpoint(DoPayment/execute_pt)">
@@ -32,6 +34,14 @@
     </componentType>
     <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
   </component>
+  <reference name="QuerySaldo" ui:wsdlLocation="WSDLs/QuerySaldo.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo#wsdl.interface(QuerySaldo_ptt)"/>
+    <binding.jca config="Adapters/QuerySaldo_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
   <wire>
     <source.uri>DoPayment</source.uri>
     <target.uri>ProcessPayment/DoPayment</target.uri>

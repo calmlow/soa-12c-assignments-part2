@@ -1,0 +1,14 @@
+<adapter-config name="QuerySaldo" adapter="db" wsdlLocation="../WSDLs/QuerySaldo.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="MySQLExt" location="eis/DB/MySQLExt"/>
+  <endpoint-interaction portType="QuerySaldo_ptt" operation="QuerySaldoSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="QuerySaldo.Bankaccounts"/>
+      <property name="QueryName" value="QuerySaldoSelect"/>
+      <property name="MappingsMetaDataURL" value="QuerySaldo-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>
