@@ -34,6 +34,7 @@
       <reference name="QuerySaldo" ui:wsdlLocation="WSDLs/QuerySaldo.wsdl">
         <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo#wsdl.interface(QuerySaldo_ptt)"/>
       </reference>
+      <sca-ext:callReference name="ValidateCashRegisterID"/>
     </componentType>
     <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
   </component>
@@ -59,4 +60,8 @@
     <source.uri>ProcessPayment/QuerySaldo</source.uri>
     <target.uri>QuerySaldo</target.uri>
   </wire>
+  <sca-ext:callWire>
+    <sca-ext:source>ProcessPayment/ValidateCashRegisterID</sca-ext:source>
+    <sca-ext:target>ValidateCashRegisterID/ValidateCashRegisterID</sca-ext:target>
+  </sca-ext:callWire>
 </composite>

@@ -29,7 +29,8 @@
          xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ui="http://xmlns.oracle.com/soa/designer"
          xmlns:ns3="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment/correlationset"
          xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo"
-         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/QuerySaldo">
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/QuerySaldo"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,6 +59,7 @@
     <variable name="OnMessage_EnterCardNumber_InputVariable" messageType="ns1:EnterCardAndPinRequestMessage"/>
     <variable name="Invoke1_QuerySaldoSelect_InputVariable" messageType="ns4:QuerySaldoSelect_inputParameters"/>
     <variable name="Invoke1_QuerySaldoSelect_OutputVariable" messageType="ns4:BankaccountsCollection_msg"/>
+    <variable name="SubprocessResponseValue" type="xsd:string"/>
   </variables>
   <correlationSets>
     <correlationSet name="Correlation_Set1" properties="ns3:MyCorrProperty"/>
@@ -92,6 +94,14 @@
           <correlation set="Correlation_Set1" initiate="no"/>
         </correlations>
         <sequence name="Sequence1">
+          <extensionActivity>
+            <bpelx:call name="Call1"
+                        xmlns:sp1="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ValidateCashRegisterID"
+                        target="sp1:ValidateCashRegisterID">
+              <bpelx:param name="In" copyByValue="yes">$Receive1_RegisterAmount_InputVariable.part1/ns2:CashRegisterID</bpelx:param>
+              <bpelx:param name="Out" copyByValue="no" variable="SubprocessResponseValue"/>
+            </bpelx:call>
+          </extensionActivity>
           <assign name="Assign2">
             <copy>
               <from>$OnMessage_EnterCardNumber_InputVariable.part1/ns2:CardNumber</from>
