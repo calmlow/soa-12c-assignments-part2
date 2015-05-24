@@ -29,3 +29,12 @@
 * 1.7 Add the outbound connection 
 * 1.8 Mark the target *DefaultServer* checkbox and hit finish
 * 1.9 Re-deploy the DbAdapter
+
+## 1.3 Screen-dumps
+
+* 1.0 [Screen 1](01_PreLabSetup_DataSources.png)
+* 1.1 [Screen 2](02_DBadapterConfig.png)
+* 1.2 [Screen 3](03_pre-config-dbAdapter.png)
+* 1.3 [Screen 4](04_deploymentAdapter.png)
+* 1.4 [Screen 5](05_deploymentAdapterProperties.png)
+* 1.5 [Screen 6](L02-pre-step-configure-dbadapter.md)
