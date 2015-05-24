@@ -37,6 +37,12 @@
     </componentType>
     <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
   </component>
+  <component name="ValidateCashRegisterID">
+    <implementation.sbpel src="BPEL/ValidateCashRegisterID.sbpel"/>
+    <componentType>
+      <sca-ext:callService name="ValidateCashRegisterID"/>
+    </componentType>
+  </component>
   <reference name="QuerySaldo" ui:wsdlLocation="WSDLs/QuerySaldo.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo#wsdl.interface(QuerySaldo_ptt)"/>
     <binding.jca config="Adapters/QuerySaldo_db.jca"/>
