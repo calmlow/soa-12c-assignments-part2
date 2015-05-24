@@ -16,7 +16,17 @@
                xmlns:ora="http://schemas.oracle.com/xpath/extension"
                xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
          xmlns:ns1="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
-         xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:ns2="https://github.com/calmlow/Payments"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ui="http://xmlns.oracle.com/soa/designer">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,6 +35,9 @@
      services integrated within this business process                  
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
+  <import namespace="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
+          location="../WSDLs/PaymentTerminalWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"
+          ui:processWSDL="true"/>
   <partnerLinks>
     <partnerLink name="DoPayment" partnerLinkType="ns1:DoPayment" myRole="execute_ptt"/>
   </partnerLinks>
@@ -34,7 +47,21 @@
   </variables>
   <sequence name="main">
     <receive name="Receive1" partnerLink="DoPayment" portType="ns1:execute_ptt" operation="RegisterAmount"
-             variable="Receive1_RegisterAmount_InputVariable"/>
+             variable="Receive1_RegisterAmount_InputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$Receive1_RegisterAmount_InputVariable.part1/ns2:CorrelationID</from>
+        <to>$Reply1_RegisterAmount_OutputVariable.part1/ns2:CorrelationID</to>
+      </copy>
+      <copy>
+        <from>1</from>
+        <to>$Reply1_RegisterAmount_OutputVariable.part1/ns2:ResponseCode</to>
+      </copy>
+      <copy>
+        <from>concat('Amount ',$Receive1_RegisterAmount_InputVariable.part1/ns2:Amount, ' was registered')</from>
+        <to>$Reply1_RegisterAmount_OutputVariable.part1/ns2:ResponseMessage</to>
+      </copy>
+    </assign>
     <reply name="Reply1" variable="Reply1_RegisterAmount_OutputVariable" partnerLink="DoPayment"
            portType="ns1:execute_ptt" operation="RegisterAmount"/>
   </sequence>

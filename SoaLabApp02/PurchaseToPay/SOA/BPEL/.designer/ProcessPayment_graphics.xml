@@ -4,7 +4,7 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="DoPayment" x="15" y="140" side="left"/>
+      <partnerlink name="DoPayment" x="15" y="189" side="left"/>
    </partnerlink_locations>
    <graph_layout viewport="0,0,1026,497" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
