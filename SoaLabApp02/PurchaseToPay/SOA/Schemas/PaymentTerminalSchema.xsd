@@ -1,0 +1,41 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="https://github.com/calmlow/Payments"
+     xmlns="http://www.w3.org/2001/XMLSchema">
+    <element name="RegisterAmount">
+        <complexType>
+            <sequence>
+                <element name="CorrelationID" type="string"/>
+                <element name="Amount" type="string"/>
+                <element name="Currency">
+                    <simpleType>
+                        <restriction base="string">
+                            <enumeration value="sek"/>
+                            <enumeration value="euros"/>
+                            <enumeration value="dollars"/>
+                        </restriction>
+                    </simpleType>
+                </element>
+                <element name="CashRegisterID" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="EnterCardAndPin">
+        <complexType>
+            <sequence>
+                <element name="CorrelationID" type="string"/>
+                <element name="CardType" type="string"/>
+                <element name="CardNumber" type="string"/>
+                <element name="PinCode" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="TerminalResponse">
+        <complexType>
+            <sequence>
+                <element name="CorrelationID" type="string"/>
+                <element name="ResponseCode" type="positiveInteger"/>
+                <element name="ResponseMessage" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>
