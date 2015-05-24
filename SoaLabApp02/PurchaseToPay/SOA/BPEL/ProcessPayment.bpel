@@ -15,7 +15,8 @@
                xmlns:client="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment"
                xmlns:ora="http://schemas.oracle.com/xpath/extension"
                xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
-         xmlns:ns1="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal">
+         xmlns:ns1="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,6 +28,11 @@
   <partnerLinks>
     <partnerLink name="DoPayment" partnerLinkType="ns1:DoPayment" myRole="execute_ptt"/>
   </partnerLinks>
+  <variables>
+    <variable name="Receive1_RegisterAmount_InputVariable" messageType="ns1:RegisterAmountRequestMessage"/>
+  </variables>
   <sequence name="main">
+    <receive name="Receive1" partnerLink="DoPayment" portType="ns1:execute_ptt" operation="RegisterAmount"
+             variable="Receive1_RegisterAmount_InputVariable"/>
   </sequence>
 </process>

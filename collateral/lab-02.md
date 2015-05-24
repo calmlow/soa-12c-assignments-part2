@@ -54,7 +54,7 @@ ResponseMessage       | concat('Amount ',$Receive1_RegisterAmount_InputVariable.
 
 * 2.0 Wire the Service with the BPEL
 
-* 2.1 Add a receive activity
+* 2.1 In BPEL view. Add a receive activity. Connect to the Partner Link. Choose correct operation. Setup default variable.
 
 * 2.2 Add a Reply activity
 
