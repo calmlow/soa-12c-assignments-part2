@@ -8,10 +8,28 @@
      xmlns:tns="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
      xmlns:cor="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment/correlationset"
+     xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
     >
     <plnk:partnerLinkType name="DoPayment">
         <plnk:role name="execute_ptt" portType="tns:execute_ptt"/>
     </plnk:partnerLinkType>
+    <vprop:propertyAlias propertyName="cor:MyCorrProperty" xmlns:tns="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
+         messageType="tns:RegisterAmountRequestMessage" part="part1" xmlns:ns1="https://github.com/calmlow/Payments">
+        <vprop:query>ns1:CorrelationID</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="cor:MyCorrProperty" xmlns:tns="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
+         messageType="tns:RegisterAmountResponseMessage" part="part1" xmlns:ns1="https://github.com/calmlow/Payments">
+        <vprop:query>ns1:CorrelationID</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="cor:MyCorrProperty" xmlns:tns="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
+         messageType="tns:EnterCardAndPinRequestMessage" part="part1" xmlns:ns1="https://github.com/calmlow/Payments">
+        <vprop:query>ns1:CorrelationID</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="cor:MyCorrProperty" xmlns:tns="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
+         messageType="tns:EnterCardAndPinResponseMessage" part="part1" xmlns:ns1="https://github.com/calmlow/Payments">
+        <vprop:query>ns1:CorrelationID</vprop:query>
+    </vprop:propertyAlias>
     <wsdl:import namespace="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
          location="PaymentTerminal.wsdl"/>
     <wsdl:import namespace="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment/correlationset"
