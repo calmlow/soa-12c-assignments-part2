@@ -4,4 +4,5 @@ src
 *.jws
 Project1
 **/*/SCA-INF/*
+**/*/deploy/*
 **/SOA/SCA-INF*/

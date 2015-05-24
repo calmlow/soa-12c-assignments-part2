@@ -89,11 +89,10 @@ Initiate (on OnMessage)       | _No_
 
 ### 3.2 Instructions
 
-* 3.0 Open the Receive Activity and add a new Correlation set
+* 3.0 Open the Receive Activity and add a new Correlation set and add a property
 * 3.1 Make Property Aliases to all the Request and Response Messages for both operations
-* 3.2 Add a Pick Activity after the last reply in the BPEL and edit it to use the *EnterCardNumber* operation of the service
-* 3.3 Auto-Create the input variable for this OnMessage
-* 3.4 Add the newly created correlation set for this Activity. Set initiate to *No*
+* 3.2 Add a Pick Activity after the last reply in the BPEL and edit the OnMessage. Use the *EnterCardNumber* operation. Auto-Create the input variable for this OnMessage.
+* 3.4 Add the newly created correlation set for this OnMessage Activity. Set initiate to *No*
 
 ### 3.4 Hints
 
@@ -111,6 +110,7 @@ Initiate (on OnMessage)       | _No_
 * 3.1 What is the Property Alias for?
 * 3.2 To what file is the Correlation Property added to?
 * 3.3 To what file does the correlation wizard add the Property Alias information?
+* 3.4 Was the new 12c Correlation Wizard intuitive?
 
     
 ## 4 Adding the Database Adapter + Point to the new datasource
@@ -150,18 +150,14 @@ Check BALANCE and leave the rest unchecked.
 
 * 4.0.6 Build the query with help of the new parameter and make it only select *CARDNUMBER* that equals the parameter
 
-* 4.1 Wire the DbAdapter to the BPEL. Invoke the DB Adapter from BPEL. Add both Input and Output variables with default names.
+* 4.1 Wire the DbAdapter to the BPEL. Invoke the DB Adapter from BPEL in OnMessage section. Add both Input and Output variables with default names.
 
 * 4.2 Query DB with correct field. Assign a value from the OnMessage_EnterCardNumber_InputVariable to the DB input variable before the Invoke to the DBAdapter.
 
 
 ### 4.3 Hints
 
-* 4.1 Uncheck all fields of that is not of interest
-
-* 4.2 Choose your DB connection from before. (hint: double-click to select it) 
-
-* 4.3 Your select statement should look like _SELECT CARDNUMBER, BALANCE FROM BANKACCOUNTS WHERE (CARDNUMBER = #cardnr)_
+* 4.0 Your select statement should look something like _SELECT CARDNUMBER, BALANCE FROM BANKACCOUNTS WHERE (CARDNUMBER = #cardnr)_
 
 ### 4.4 Questions
 
@@ -193,9 +189,9 @@ Variable for storing response   | SubprocessResponseValue
 
 * 5.2 Add Assign activity to both IF and ELSE sections. If section assigns "OK" to Out variable. Else section assigns "NOT OK" to Out variable.
 
-* 5.2 From the BPEL add a call activity and call the Subprocess
+* 5.3 From the BPEL, add a Call activity and point to the Subprocess. Add this component in the OnMessage section before the assign.
 
-* 5.2.1 Setup the call with the CashRegisterID as input and *SubprocessResponseValue* for storing the response
+* 5.3.1 Setup the call with the CashRegisterID as input and *SubprocessResponseValue* for storing the response
 
 ### 5.3 Questions
 
@@ -210,11 +206,19 @@ Reply from to the second operation on the OnMessage branch, with values from the
 ### 6.1 Instructions
 
 * 6.0 Add an Reply activity for the EnterCardNumber
-* 6.1 Add an Assign and give the reply variables some nice values
+* 6.1 Add an Assign and give the EnterCard reply variable some nice response values to see response of subprocess and the database query.
 * 6.1.1 Build and deploy composite. Setup SOAP UI according to [this page](https://github.com/calmlow/12clabs-wip/blob/master/collateral/additional-info.md) if needed.
 * 6.1.2 Try and call the EnterCardNumber operation before the RegisterAmount operation
 
-### 6.2 Questions
+### 6.2 Hints
+
+Below was my response value for the second operation.
+
+```xml
+concat('Subprocess: ', $SubprocessResponseValue, ', DB Response - balance: ', $Invoke1_QuerySaldoSelect_OutputVariable.BankaccountsCollection/ns5:Bankaccounts/ns5:balance)
+```
+
+### 6.3 Questions
 
 * 6.0 Why does the service timeout when trying to call the second operation before the first? 
 
@@ -248,11 +252,17 @@ Invoke Name of db writer in BPEL  | InvokeDBWriter
 
 * 7.7 Use concat to assign some nice response messages along with the variables retrieved from output of db call.
 
-## 8.0 (Extra) Add fault handling
+## 8 (Extra) Add fault handling
 
 ### 8.1 Instructions
 
 * 8.0 Add a catchAll activity to catch a negative response from the subprocess
 
 * 8.1 Deploy your app
+
+## 9 (Extra) Secure the pincode field with message encryption
+
+### 9.1 Instructions
+
+* 9.0 Add message encryption to a single field to make the pin code encrypted in the flow.
 
