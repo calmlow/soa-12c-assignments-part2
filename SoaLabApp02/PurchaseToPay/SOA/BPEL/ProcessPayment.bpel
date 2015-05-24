@@ -82,7 +82,11 @@
            portType="ns1:execute_ptt" operation="RegisterAmount"/>
     <pick name="Pick1">
       <onMessage variable="OnMessage_EnterCardNumber_InputVariable" partnerLink="DoPayment" portType="ns1:execute_ptt"
-                 operation="EnterCardNumber"></onMessage>
+                 operation="EnterCardNumber">
+        <correlations>
+          <correlation set="Correlation_Set1" initiate="no"/>
+        </correlations>
+      </onMessage>
     </pick>
   </sequence>
 </process>
