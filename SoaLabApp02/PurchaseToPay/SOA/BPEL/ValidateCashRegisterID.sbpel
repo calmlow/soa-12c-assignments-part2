@@ -42,7 +42,20 @@
   <sequence name="main">
     <if name="If1">
       <condition>string-length($In) &gt; 6</condition>
-      <else></else>
+      <assign name="Assign1">
+        <copy>
+          <from>'OK'</from>
+          <to>$Out</to>
+        </copy>
+      </assign>
+      <else>
+        <assign name="Assign2">
+          <copy>
+            <from>'NOT OK'</from>
+            <to>$Out</to>
+          </copy>
+        </assign>
+      </else>
     </if>
   </sequence>
 </bpelx:subProcess>
