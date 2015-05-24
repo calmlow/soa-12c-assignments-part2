@@ -56,7 +56,7 @@ ResponseMessage       | concat('Amount ',$Receive1_RegisterAmount_InputVariable.
 
 * 2.1 In BPEL view. Add a receive activity. Connect to the Partner Link. Choose correct operation. Setup default variable.
 
-* 2.2 Add a Reply activity
+* 2.2 Add a Reply activity in the same way.
 
 * 2.3 Add an assign activity and add the outgoing message to ResponseMessage Field
 

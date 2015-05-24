@@ -30,9 +30,12 @@
   </partnerLinks>
   <variables>
     <variable name="Receive1_RegisterAmount_InputVariable" messageType="ns1:RegisterAmountRequestMessage"/>
+    <variable name="Reply1_RegisterAmount_OutputVariable" messageType="ns1:RegisterAmountResponseMessage"/>
   </variables>
   <sequence name="main">
     <receive name="Receive1" partnerLink="DoPayment" portType="ns1:execute_ptt" operation="RegisterAmount"
              variable="Receive1_RegisterAmount_InputVariable"/>
+    <reply name="Reply1" variable="Reply1_RegisterAmount_OutputVariable" partnerLink="DoPayment"
+           portType="ns1:execute_ptt" operation="RegisterAmount"/>
   </sequence>
 </process>
