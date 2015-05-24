@@ -27,7 +27,8 @@
          xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
          xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
          xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ui="http://xmlns.oracle.com/soa/designer"
-         xmlns:ns3="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment/correlationset">
+         xmlns:ns3="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment/correlationset"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,11 +49,14 @@
           ui:processWSDL="true"/>
   <partnerLinks>
     <partnerLink name="DoPayment" partnerLinkType="ns1:DoPayment" myRole="execute_ptt"/>
+    <partnerLink name="QuerySaldo" partnerLinkType="ns4:QuerySaldo_plt" partnerRole="QuerySaldo_role"/>
   </partnerLinks>
   <variables>
     <variable name="Receive1_RegisterAmount_InputVariable" messageType="ns1:RegisterAmountRequestMessage"/>
     <variable name="Reply1_RegisterAmount_OutputVariable" messageType="ns1:RegisterAmountResponseMessage"/>
     <variable name="OnMessage_EnterCardNumber_InputVariable" messageType="ns1:EnterCardAndPinRequestMessage"/>
+    <variable name="Invoke1_QuerySaldoSelect_InputVariable" messageType="ns4:QuerySaldoSelect_inputParameters"/>
+    <variable name="Invoke1_QuerySaldoSelect_OutputVariable" messageType="ns4:BankaccountsCollection_msg"/>
   </variables>
   <correlationSets>
     <correlationSet name="Correlation_Set1" properties="ns3:MyCorrProperty"/>
@@ -86,6 +90,9 @@
         <correlations>
           <correlation set="Correlation_Set1" initiate="no"/>
         </correlations>
+        <invoke name="Invoke1" bpelx:invokeAsDetail="no" partnerLink="QuerySaldo" portType="ns4:QuerySaldo_ptt"
+                operation="QuerySaldoSelect" inputVariable="Invoke1_QuerySaldoSelect_InputVariable"
+                outputVariable="Invoke1_QuerySaldoSelect_OutputVariable"/>
       </onMessage>
     </pick>
   </sequence>

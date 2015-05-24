@@ -31,6 +31,9 @@
       <service name="DoPayment" ui:wsdlLocation="WSDLs/PaymentTerminalWrapper.wsdl">
         <interface.wsdl interface="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal#wsdl.interface(execute_ptt)"/>
       </service>
+      <reference name="QuerySaldo" ui:wsdlLocation="WSDLs/QuerySaldo.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SoaLabApp02/PurchaseToPay/QuerySaldo#wsdl.interface(QuerySaldo_ptt)"/>
+      </reference>
     </componentType>
     <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
   </component>
@@ -45,5 +48,9 @@
   <wire>
     <source.uri>DoPayment</source.uri>
     <target.uri>ProcessPayment/DoPayment</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ProcessPayment/QuerySaldo</source.uri>
+    <target.uri>QuerySaldo</target.uri>
   </wire>
 </composite>
