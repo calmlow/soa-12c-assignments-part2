@@ -135,7 +135,7 @@ parameter name (in select statement) | cardnr
 
 ### 4.2 Instructions
 
-* 4.0 In composite view. Drag and drop a Database Adapter onto the External References swim lane
+* 4.0 In composite view. Drag and drop a Database Adapter into the External References swim lane
 
 * 4.0.1 Give the Reference Name *QuerySaldo* to the DBAdapter
 

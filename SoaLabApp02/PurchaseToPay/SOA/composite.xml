@@ -13,6 +13,8 @@
            xmlns:sca-ext="http://xmlns.oracle.com/sca/1.0-ext">
   <import namespace="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
           location="WSDLs/PaymentTerminal.wsdl" importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
+          location="WSDLs/PaymentTerminalWrapper.wsdl" importType="wsdl"/>
   <service name="DoPayment" ui:wsdlLocation="WSDLs/PaymentTerminal.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal#wsdl.interface(execute_ptt)"/>
     <binding.ws port="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal#wsdl.endpoint(DoPayment/execute_pt)">
@@ -23,6 +25,15 @@
   <property name="compositeID" type="xs:string" many="false">90fecd07-c2a0-41b1-a9b6-4ca1a5b8e172</property>
   <component name="ProcessPayment" version="2.0">
     <implementation.bpel src="BPEL/ProcessPayment.bpel"/>
-    <componentType/>
+    <componentType>
+      <service name="DoPayment" ui:wsdlLocation="WSDLs/PaymentTerminalWrapper.wsdl">
+        <interface.wsdl interface="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal#wsdl.interface(execute_ptt)"/>
+      </service>
+    </componentType>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
   </component>
+  <wire>
+    <source.uri>DoPayment</source.uri>
+    <target.uri>ProcessPayment/DoPayment</target.uri>
+  </wire>
 </composite>
