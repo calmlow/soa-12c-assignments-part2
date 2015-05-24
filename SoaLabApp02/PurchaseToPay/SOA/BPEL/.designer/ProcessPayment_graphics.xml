@@ -4,10 +4,10 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="DoPayment" x="15" y="189" side="left"/>
+      <partnerlink name="DoPayment" x="15" y="400" side="left"/>
       <partnerlink name="QuerySaldo" x="894" y="726" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,375,1011,497" show_swimlanes="true">
+   <graph_layout viewport="0,450,1011,497" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/pick" type="pick"/>

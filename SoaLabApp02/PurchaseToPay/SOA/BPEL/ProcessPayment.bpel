@@ -60,6 +60,7 @@
     <variable name="Invoke1_QuerySaldoSelect_InputVariable" messageType="ns4:QuerySaldoSelect_inputParameters"/>
     <variable name="Invoke1_QuerySaldoSelect_OutputVariable" messageType="ns4:BankaccountsCollection_msg"/>
     <variable name="SubprocessResponseValue" type="xsd:string"/>
+    <variable name="Reply2_EnterCardNumber_OutputVariable" messageType="ns1:EnterCardAndPinResponseMessage"/>
   </variables>
   <correlationSets>
     <correlationSet name="Correlation_Set1" properties="ns3:MyCorrProperty"/>
@@ -111,6 +112,8 @@
           <invoke name="Invoke1" bpelx:invokeAsDetail="no" partnerLink="QuerySaldo" portType="ns4:QuerySaldo_ptt"
                   operation="QuerySaldoSelect" inputVariable="Invoke1_QuerySaldoSelect_InputVariable"
                   outputVariable="Invoke1_QuerySaldoSelect_OutputVariable"/>
+          <reply name="Reply2" variable="Reply2_EnterCardNumber_OutputVariable" partnerLink="DoPayment"
+                 portType="ns1:execute_ptt" operation="EnterCardNumber"/>
         </sequence>
       </onMessage>
     </pick>
