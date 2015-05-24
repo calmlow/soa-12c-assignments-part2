@@ -1,0 +1,36 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions name="PaymentTerminal"
+                  targetNamespace="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
+                  xmlns:tns="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
+                  xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mca="https://github.com/calmlow/Payments"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="https://github.com/calmlow/Payments"
+                  schemaLocation="../Schemas/PaymentTerminalSchema.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="RegisterAmountRequestMessage">
+    <wsdl:part name="part1" element="mca:RegisterAmount"/>
+  </wsdl:message>
+  <wsdl:message name="RegisterAmountResponseMessage">
+    <wsdl:part name="part1" element="mca:TerminalResponse"/>
+  </wsdl:message>
+  <wsdl:message name="EnterCardAndPinRequestMessage">
+    <wsdl:part name="part1" element="mca:EnterCardAndPin"/>
+  </wsdl:message>
+  <wsdl:message name="EnterCardAndPinResponseMessage">
+    <wsdl:part name="part1" element="mca:TerminalResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="execute_ptt">
+    <wsdl:operation name="RegisterAmount">
+      <wsdl:input message="tns:RegisterAmountRequestMessage"/>
+      <wsdl:output message="tns:RegisterAmountResponseMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="EnterCardNumber">
+      <wsdl:input message="tns:EnterCardAndPinRequestMessage"/>
+      <wsdl:output message="tns:EnterCardAndPinResponseMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>
