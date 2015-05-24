@@ -14,8 +14,8 @@ Package Prefix        | _leave blank_
 Project Name          | PurchaseToPay
 Start from:           | _Empty Composite_
 Service Name          | DoPayment
-WSDL File             | [PaymentTerminal.wsdl](https://github.com/calmlow/12clabs-wip/tree/master/collateral/WSDLs/PaymentTerminal.wsdl)
-Schema File           | [PaymentTerminalSchema.xsd](https://github.com/calmlow/12clabs-wip/tree/master/collateral/Schemas/PaymentTerminalSchema.xsd)
+WSDL File             | [PaymentTerminal.wsdl](WSDLs/PaymentTerminal.wsdl)
+Schema File           | [PaymentTerminalSchema.xsd](Schemas/PaymentTerminalSchema.xsd)
 BPEL Name             | ProcessPayment
 
 ### 1.2 Instructions
