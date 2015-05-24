@@ -112,6 +112,20 @@
           <invoke name="Invoke1" bpelx:invokeAsDetail="no" partnerLink="QuerySaldo" portType="ns4:QuerySaldo_ptt"
                   operation="QuerySaldoSelect" inputVariable="Invoke1_QuerySaldoSelect_InputVariable"
                   outputVariable="Invoke1_QuerySaldoSelect_OutputVariable"/>
+          <assign name="Assign3">
+            <copy>
+              <from>$OnMessage_EnterCardNumber_InputVariable.part1/ns2:CorrelationID</from>
+              <to>$Reply2_EnterCardNumber_OutputVariable.part1/ns2:CorrelationID</to>
+            </copy>
+            <copy>
+              <from>1</from>
+              <to>$Reply2_EnterCardNumber_OutputVariable.part1/ns2:ResponseCode</to>
+            </copy>
+            <copy>
+              <from>concat('Subprocess: ', $SubprocessResponseValue, ', DB Response, balance: ', $Invoke1_QuerySaldoSelect_OutputVariable.BankaccountsCollection/ns5:Bankaccounts/ns5:balance)</from>
+              <to>$Reply2_EnterCardNumber_OutputVariable.part1/ns2:ResponseMessage</to>
+            </copy>
+          </assign>
           <reply name="Reply2" variable="Reply2_EnterCardNumber_OutputVariable" partnerLink="DoPayment"
                  portType="ns1:execute_ptt" operation="EnterCardNumber"/>
         </sequence>
