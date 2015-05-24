@@ -21,4 +21,8 @@
   </service>
   <property name="productVersion" type="xs:string" many="false">12.1.3.0.0</property>
   <property name="compositeID" type="xs:string" many="false">90fecd07-c2a0-41b1-a9b6-4ca1a5b8e172</property>
+  <component name="ProcessPayment" version="2.0">
+    <implementation.bpel src="BPEL/ProcessPayment.bpel"/>
+    <componentType/>
+  </component>
 </composite>
