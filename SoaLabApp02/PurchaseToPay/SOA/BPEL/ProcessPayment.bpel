@@ -26,7 +26,8 @@
          xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
          xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
          xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
-         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ui="http://xmlns.oracle.com/soa/designer">
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:ns3="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment/correlationset">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +36,13 @@
      services integrated within this business process                  
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
+  <bpelx:annotation>
+    <bpelx:analysis>
+      <bpelx:property name="propertiesFile">
+        <![CDATA[../WSDLs/ProcessPayment_properties.wsdl]]>
+      </bpelx:property>
+    </bpelx:analysis>
+  </bpelx:annotation>
   <import namespace="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
           location="../WSDLs/PaymentTerminalWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"
           ui:processWSDL="true"/>
@@ -45,9 +53,16 @@
     <variable name="Receive1_RegisterAmount_InputVariable" messageType="ns1:RegisterAmountRequestMessage"/>
     <variable name="Reply1_RegisterAmount_OutputVariable" messageType="ns1:RegisterAmountResponseMessage"/>
   </variables>
+  <correlationSets>
+    <correlationSet name="Correlation_Set1" properties="ns3:MyCorrProperty"/>
+  </correlationSets>
   <sequence name="main">
     <receive name="Receive1" partnerLink="DoPayment" portType="ns1:execute_ptt" operation="RegisterAmount"
-             variable="Receive1_RegisterAmount_InputVariable" createInstance="yes"/>
+             variable="Receive1_RegisterAmount_InputVariable" createInstance="yes">
+      <correlations>
+        <correlation set="Correlation_Set1" initiate="yes"/>
+      </correlations>
+    </receive>
     <assign name="Assign1">
       <copy>
         <from>$Receive1_RegisterAmount_InputVariable.part1/ns2:CorrelationID</from>

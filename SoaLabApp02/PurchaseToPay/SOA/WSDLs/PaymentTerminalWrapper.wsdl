@@ -7,10 +7,13 @@
      xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
      xmlns:tns="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:cor="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment/correlationset"
     >
     <plnk:partnerLinkType name="DoPayment">
         <plnk:role name="execute_ptt" portType="tns:execute_ptt"/>
     </plnk:partnerLinkType>
     <wsdl:import namespace="http://oracle.com/sca/soapservice/Application1/Project1/PaymentTerminal"
          location="PaymentTerminal.wsdl"/>
+    <wsdl:import namespace="http://xmlns.oracle.com/SoaLabApp02/PurchaseToPay/ProcessPayment/correlationset"
+         location="ProcessPayment_properties.wsdl"/>
 </wsdl:definitions>
