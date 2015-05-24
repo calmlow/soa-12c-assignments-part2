@@ -52,6 +52,7 @@
   <variables>
     <variable name="Receive1_RegisterAmount_InputVariable" messageType="ns1:RegisterAmountRequestMessage"/>
     <variable name="Reply1_RegisterAmount_OutputVariable" messageType="ns1:RegisterAmountResponseMessage"/>
+    <variable name="OnMessage_EnterCardNumber_InputVariable" messageType="ns1:EnterCardAndPinRequestMessage"/>
   </variables>
   <correlationSets>
     <correlationSet name="Correlation_Set1" properties="ns3:MyCorrProperty"/>
@@ -79,5 +80,9 @@
     </assign>
     <reply name="Reply1" variable="Reply1_RegisterAmount_OutputVariable" partnerLink="DoPayment"
            portType="ns1:execute_ptt" operation="RegisterAmount"/>
+    <pick name="Pick1">
+      <onMessage variable="OnMessage_EnterCardNumber_InputVariable" partnerLink="DoPayment" portType="ns1:execute_ptt"
+                 operation="EnterCardNumber"></onMessage>
+    </pick>
   </sequence>
 </process>
